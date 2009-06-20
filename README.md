@@ -29,17 +29,17 @@ A key/value object with some parameters (all are optional). If this parameter is
 
 With default config:
 
-    <p data-had="had[key:value]">Example</p>
+    <p data-had="had[key:value]" id="my_element">Example</p>
 
     HAD.get( document.getElementById("my_element") );
 
 With config parameters:
 
-    <p new-html-attribute="new-block-id[key:value]">Example</p>
+    <a rel="friend external my-data[key:value]" id="my_element">Example</a>
 
     HAD.get( document.getElementById("my_element"), {
-      attr: "new-html-attribute"
-      id: "new-block-id"
+      attr: "rel"
+      id: "my-data"
     });
 
 
