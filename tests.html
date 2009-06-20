@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Hadata (HTML Attribute Data) - Tests</title>
+	<style type="text/css" media="screen">
+	 body{font-family:Verdana,sans-serif;}
+	</style>
+	<script type="text/javascript" src="hadata.js"></script>
+	<script type="text/javascript">
+		function byId(s){return document.getElementById(s)};
+		
+		var tests = [];
+		function launch_tests() {
+		  for (var i in tests) {
+		    tests[i]();
+		  }
+		  fireunit.testDone();
+		};
+	</script>
+</head>
+<body>
+	<h1>Hadata test suite</h1>
+	<p>These tests are using <a href="http://fireunit.org/" title="FireUnit: Firebug Unit Testing for Firefox">FireUnit</a> (<a href="http://www.getfirebug.com/" title="Firebug - Web Development Evolved">Firebug</a> is required).</p>
+	
+	<!-- HAD.get() - default parameters -->
+	<a id="test-1" href="http://www.example.com" data-had="had[data1:my_data1,data2:my_data2,data3:my_data3]">Test #1</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+  	      
+  	      var data_test = HAD.get( byId("test-1") );
+	        
+  	      return (
+  	        data_test.data1 === "my_data1" &&
+  	        data_test.data2 === "my_data2" &&
+  	        data_test.data3 === "my_data3"
+  	      );
+	        
+  	    })(), "HAD.get() - default parameters");
+  	  });
+	</script>
+	
+	<!-- HAD.get() - default parameters - multiple values in attribute -->
+	<a id="test-2" href="http://www.example.com" data-had="value_1 had[data1:my_data1,data2:my_data2,data3:my_data3] value_2">Test #2</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      var data_test = HAD.get( byId("test-2") );
+		      
+		      return (
+		        data_test.data1 === "my_data1" &&
+		        data_test.data2 === "my_data2" &&
+		        data_test.data3 === "my_data3"
+		      );
+		      
+		    })(), "HAD.get() - default parameters - multiple values in attribute");
+  	  });
+	</script>
+	
+	<!-- HAD.get() - custom attribute -->
+	<a id="test-3" href="http://www.example.com" data-attribute-test="had[data1:my_data1,data2:my_data2,data3:my_data3]">Test #3</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      var data_test = HAD.get( byId("test-3"), {attr: "data-attribute-test"} );
+		      
+		      return (
+		        data_test.data1 === "my_data1" &&
+		        data_test.data2 === "my_data2" &&
+		        data_test.data3 === "my_data3"
+		      );
+		      
+		    })(), "HAD.get() - custom attribute");
+  	  });
+	</script>
+	
+	<!-- HAD.get() - custom id -->
+	<a id="test-4" href="http://www.example.com" data-had="id_test[data1:my_data1,data2:my_data2,data3:my_data3]">Test #4</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      var data_test = HAD.get( byId("test-4"), {id: "id_test"} );
+		      
+		      return (
+		        data_test.data1 === "my_data1" &&
+		        data_test.data2 === "my_data2" &&
+		        data_test.data3 === "my_data3"
+		      );
+		      
+		    })(), "HAD.get() - custom id");
+  	  });
+	</script>
+	
+	<!-- HAD.get() - multiple ids in the same attribute -->
+	<a id="test-5" href="http://www.example.com" data-had="had[data1:my_data1] id_test[data3:my_data3]">Test #5</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      var data_test_1 = HAD.get( byId("test-5"), {id: "had"} );
+		      var data_test_2 = HAD.get( byId("test-5"), {id: "id_test"} );
+		      
+		      return (
+		        data_test_1.data1 === "my_data1" &&
+		        data_test_2.data3 === "my_data3"
+		      );
+		      
+		    })(), "HAD.get() - multiple ids in the same attribute");
+  	  });
+	</script>
+	
+	<!-- HAD.set() - get an object, change a value, set the new object -->
+	<a id="test-6" href="http://www.example.com" data-had="had[data1:my_data1,data2:my_data2]">Test #6</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      var data_test = HAD.get( byId("test-6") );
+		      
+		      data_test.data2 = "new_value";
+		      
+		      HAD.set( byId("test-6"), data_test );
+		      
+		      return byId("test-6").getAttribute("data-had") === "had[data1:my_data1,data2:new_value]";
+		      
+		    })(), "HAD.set() - get an object, change a value, set the new object");
+  	  });
+	</script>
+	
+	<!-- HAD.config() - change HAD configuration -->
+	<a id="test-7" href="http://www.example.com" data-custom-attr="custom-id[data1:my_data1,data2:my_data2]">Test #7</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      HAD.config({
+		        attr: "data-custom-attr",
+		        id: "custom-id"
+		      });
+		      
+		      var data_test = HAD.get( byId("test-7") );
+		      
+		      return (
+		        data_test.data1 === "my_data1" &&
+		        data_test.data2 === "my_data2"
+		      );
+		      
+		    })(), "HAD.config() - change HAD configuration");
+		    
+		    // Reset config
+	      HAD.config({
+	        attr: "data-had",
+	        id: "had"
+	      });
+  	  });
+	</script>
+	
+	<!-- HAD.set() - set a new value in an empty attribute -->
+	<a id="test-8" href="http://www.example.com" data-had="">Test #8</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      try {
+		        HAD.set( byId("test-8"), {data_test: "my_test"} );
+		        return true;
+		        
+		      } catch(e) { return false; }
+		      
+		    })(), "HAD.set() - set a new value in an empty attribute");
+  	  });
+	</script>
+	
+	<!-- HAD.set() - set a new value in an attribute with some values -->
+	<a id="test-9" href="http://www.example.com" data-had="value1 value2">Test #9</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      try {
+		        HAD.set( byId("test-9"), {data_test: "my_test"} );
+		        return byId("test-9").getAttribute("data-had") === "value1 value2 had[data_test:my_test]";
+		        
+		      } catch(e) { return false; }
+		      
+		    })(), "HAD.set() - set a new value in an attribute with some values");
+  	  });
+	</script>
+	
+	<!-- HAD.set() - set a new value in a new attribute -->
+	<a id="test-10" href="http://www.example.com">Test #10</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      try {
+		        HAD.set( byId("test-10"), {data_test: "my_test"} );
+		        return byId("test-10").getAttribute("data-had") === " had[data_test:my_test]";
+		        
+		      } catch(e) {
+		        return false;
+		      }
+		      
+		    })(), "HAD.set() - set a new value in a new attribute");
+  	  });
+	</script>
+	
+	<!-- HAD.set() - set a new value in a new attribute, and get value -->
+	<a id="test-11" href="http://www.example.com">Test #11</a><br />
+	<script type="text/javascript">
+	  tests.push(function(){
+  	    fireunit.ok((function(){
+		      
+		      try {
+		        HAD.set( byId("test-11"), {data_test: "my_test"} );
+		        var data_test = HAD.get( byId("test-11") );
+		        
+		        return data_test.data_test === "my_test";
+		        
+		      } catch(e) {
+		        return false;
+		      }
+		      
+		    })(), "HAD.set() - set a new value in a new attribute, and get value");
+  	  });
+	</script>
+	
+	<script type="text/javascript">launch_tests()</script>
+</body>
+</html>
