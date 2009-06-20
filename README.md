@@ -17,10 +17,10 @@ A DOM Element.
 
 #### config ####
 
-A key/value object with some parameters (all are optional).
-If this parameter is omitted, default config is used.
+A key/value object with some parameters (all are optional). If this parameter is omitted, default config is used.
 
 `attr` defines a new HTML attribute (default: `"data-had"`)
+
 `id` defines a new block id inside the HTML attribute (default: `"had"`)
 
 #### Examples ####
