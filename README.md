@@ -2,26 +2,22 @@
 
 ### Allows to: ###
 
-* Get a JS object from key/value pairs in an HTML attribute
-* Set key/value pairs in an HTML attribute from a JS object
+* Get an object from key/value pairs in an HTML attribute
+* Set a key/value object in an HTML attribute from a simple JS object
 
 ### get ###
 
 Returns a JS object from a DOM element.
 
-#### Syntax ####
-
     HAD.get( element [, config] )
 
-#### Parameters ####
+#### element ####
 
-##### element #####
+A DOM Element.
 
-A DOM element.
+#### config ####
 
-##### config #####
-
-A JS object. All values are optional.
+A key/value object with some parameters (all are optional).
 If this parameter is omitted, default config is used.
 
 * `attr` defines a new HTML attribute (default: `"data-had"`)
@@ -29,23 +25,15 @@ If this parameter is omitted, default config is used.
 
 #### Examples ####
 
-##### Default config #####
-
-HTML:
+With default config:
 
     <p data-had="had[key:value]">Example</p>
 
-JS:
-
     HAD.get( document.getElementById("my_element") );
 
-##### Custom config #####
-
-HTML:
+With config parameters:
 
     <p new-html-attribute="new-block-id[key:value]">Example</p>
-
-JS:
 
     HAD.get( document.getElementById("my_element"), {
       attr: "new-html-attribute"
