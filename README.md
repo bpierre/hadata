@@ -29,13 +29,13 @@ A key/value object with some parameters (all are optional). If this parameter is
 
 With default config:
 
-    <p data-had="had[key:value]" id="my_element">Example</p>
+    <p data-had="had[key:value,key2:value2]" id="my_element">Example</p>
 
     HAD.get( document.getElementById("my_element") );
 
 With config parameters:
 
-    <a rel="friend external my-data[key:value]" id="my_element">Example</a>
+    <a rel="friend external my-data[key:value,key2:value2]" id="my_element">Example</a>
 
     HAD.get( document.getElementById("my_element"), {
       attr: "rel"
