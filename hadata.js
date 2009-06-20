@@ -62,18 +62,19 @@ var HAD = (function() {
             return final_obj;
         },
 	    
-        set: function(elt, data, attr, id) {
+        set: function(elt, data, conf) {
 		    
     		if (typeof data !== "object") {
     		    throw new Error('The second parameter must be an object');
     		}
 		    
-    		// Global config
-            attr = attr || default_attr;
-            id = id || default_id;
+            // Global config
+            var conf = conf || {},
+            attr = conf.attr || default_attr,
+            id = conf.id || default_id,
 		    
             // Get raw attribute
-            var raw_attr = elt.getAttribute(attr) || "",
+            raw_attr = elt.getAttribute(attr) || "",
 		    
     		// Separate each value (space separated)
     		attr_value = getEltVal(raw_attr, id),
