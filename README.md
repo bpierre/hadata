@@ -1,57 +1,53 @@
-h2. Hadata
+## Hadata ##
 
-h3. Allows to:
+### Allows to: ###
 
 * Get a JS object from key/value pairs in an HTML attribute
 * Set key/value pairs in an HTML attribute from a JS object
 
-h3. get
+### get ###
 
 Returns a JS object from a DOM element.
 
-h4. Syntax
+#### Syntax ####
 
-@HAD.get( element [, config] )@
+    HAD.get( element [, config] )
 
-h4. Parameters
+#### Parameters ####
 
-h5. element
+##### element #####
 
 A DOM element.
 
-h5. config
+##### config #####
 
 A JS object. All values are optional.
 If this parameter is omitted, default config is used.
 
-* @attr@ defines a new HTML attribute (default: @"data-had"@)
-* @id@ defines a new block id inside the HTML attribute (default: @"had"@)
+* `attr` defines a new HTML attribute (default: `"data-had"`)
+* `id` defines a new block id inside the HTML attribute (default: `"had"`)
 
-h4. Examples
+#### Examples ####
 
-h5. Default config
-
-HTML:
-<pre>
-  <p data-had="had[key:value]">Example</p>
-</pre>
-
-JS:
-<pre>
-  HAD.get( document.getElementById("my_element") );
-</pre>
-
-h5. Custom config
+##### Default config #####
 
 HTML:
-<pre>
-  <p new-html-attribute="new-block-id[key:value]">Example</p>
-</pre>
+
+    <p data-had="had[key:value]">Example</p>
 
 JS:
-<pre>
-  HAD.get( document.getElementById("my_element"), {
-    attr: "new-html-attribute"
-    id: "new-block-id"
-  });
-</pre>
+
+    HAD.get( document.getElementById("my_element") );
+
+##### Custom config #####
+
+HTML:
+
+    <p new-html-attribute="new-block-id[key:value]">Example</p>
+
+JS:
+
+    HAD.get( document.getElementById("my_element"), {
+      attr: "new-html-attribute"
+      id: "new-block-id"
+    });

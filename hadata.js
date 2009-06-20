@@ -1,6 +1,7 @@
 /*
- * Hadata (HTML Attribute Data) - Get a JS object from an HTML attribute
- * 
+ * Hadata (HTML Attribute Data) 0.1 - Turn an HTML attribute value into a JS object
+ * Copyright (c) 2009 Pierre Bertet (pierrebertet.net)
+ * Licensed under the MIT LICENSE (MIT-LICENSE.txt)
  */
 var HAD = (function() {
     
